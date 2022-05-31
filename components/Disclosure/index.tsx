@@ -27,7 +27,7 @@ export function Disclosure({ title, children }: DisclosureProps) {
           >
             <div
               className={classNames(
-                "prose flex items-center justify-between w-full dark:prose-invert"
+                "prose flex items-center justify-between w-full dark:prose-invert max-w-none"
               )}
             >
               <h3 className="my-0">{title}</h3>

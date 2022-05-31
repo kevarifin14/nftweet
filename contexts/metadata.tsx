@@ -8,7 +8,7 @@ export type MetadataContextProps = {
 };
 
 const defaultMetadataContext = {
-  name: "Make NFTweet",
+  name: "NFTweet",
   description: "Turn your tweets into NFTs",
   url: process.env.NEXT_PUBLIC_URL!,
   handle: "@MakeNFTweet",
