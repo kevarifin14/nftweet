@@ -1,7 +1,7 @@
 import chromium from "chrome-aws-lambda";
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
