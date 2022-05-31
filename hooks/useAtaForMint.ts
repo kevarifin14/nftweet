@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 export const useAtaForMint = (mint: PublicKey, buyer: PublicKey) => {
   const [ata, setAta] = useState<PublicKey>();
-  // console.log(buyer!.toString())
 
   useEffect(() => {
     if (mint && buyer) {

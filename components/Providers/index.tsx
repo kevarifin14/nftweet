@@ -1,4 +1,4 @@
-import { AccountProvider } from "@strata-foundation/react";
+// import { AccountProvider } from "@strata-foundation/react";
 import { ApolloClientProvider } from "contexts/apollo";
 import { CurrentUserProvider } from "contexts/currentUser";
 import { MetadataProvider } from "contexts/metadata";
@@ -21,9 +21,9 @@ export function Providers({ children, session }: ProvidersProps) {
           <ApolloClientProvider>
             <WalletConnectionProvider>
               <CurrentUserProvider>
-                <AccountProvider commitment="confirmed">
-                  {children}
-                </AccountProvider>
+                {/* <AccountProvider commitment="confirmed"> */}
+                {children}
+                {/* </AccountProvider> */}
               </CurrentUserProvider>
             </WalletConnectionProvider>
           </ApolloClientProvider>

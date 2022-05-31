@@ -27,8 +27,10 @@ export function NftweetPage({ nftweet }: NftweetPageProps) {
   const ata = useAtaForMint(nft?.mint!, nft?.updateAuthority!);
 
   useEffect(() => {
-    metaplex.nfts().findByMint(new PublicKey(nftweet.mintKey)).then(setNft);
-  }, [metaplex, setNft, nftweet]);
+    if (nftweet.mintKey) {
+      metaplex.nfts().findByMint(new PublicKey(nftweet.mintKey)).then(setNft);
+    }
+  }, [setNft, metaplex, nftweet]);
 
   if (!nft) {
     return <LoadingPage />;
