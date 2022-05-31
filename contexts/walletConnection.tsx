@@ -22,10 +22,15 @@ export function WalletConnectionProvider({
   const network =
     process.env.NODE_ENV === "development"
       ? WalletAdapterNetwork.Devnet
-      : // : WalletAdapterNetwork.Mainnet;
-        "https://falling-withered-water.solana-mainnet.quiknode.pro/94ebe618ceec1f234f1d9346693e89feaf3bf3a7/";
+      : WalletAdapterNetwork.Mainnet;
 
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const endpoint = useMemo(() => {
+    if (process.env.NODE_ENV) {
+      return clusterApiUrl(network);
+    } else {
+      return "https://falling-withered-water.solana-mainnet.quiknode.pro/94ebe618ceec1f234f1d9346693e89feaf3bf3a7/";
+    }
+  }, [network]);
 
   const wallets = useMemo(
     () => [

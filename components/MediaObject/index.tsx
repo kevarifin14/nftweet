@@ -37,7 +37,7 @@ export function MediaObject({
       {src && (
         <div className="flex-shrink-0">
           <AvatarGroup
-            loading={loading}
+            loading={loading || false}
             size={size}
             src={Array.isArray(src) ? src : [src]}
           />

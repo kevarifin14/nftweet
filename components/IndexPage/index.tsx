@@ -38,7 +38,7 @@ export function IndexPage() {
     useTweetImageBufferString(tweetId);
   const [addNftweet, { data: newNftweetData }] = useAddNftweetMutation();
   const { data: nftweetsData } = useNftweetsByTweetIdQuery({
-    variables: { tweetId: tweetId! },
+    variables: { tweetId: tweetId! as string },
   });
   const { currentUser, showSignInModal, showConnectWalletModal } =
     useCurrentUser();
@@ -305,7 +305,7 @@ export function IndexPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            <NfTweetMetadata tweetId={tweetId} />
+            <NfTweetMetadata tweetId={tweetId! as string} />
           </div>
         )}
 

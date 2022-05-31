@@ -48,19 +48,23 @@ export function SessionPopoverPanel({
   }, [publicKey]);
 
   const walletNavItems: INavItem[] = [
-    !connected && {
-      name: "Connect a Wallet",
-      onClick: () => setVisible(true),
-      icon: HiLink,
-    },
-    connected && {
-      name: "Disconnect",
-      onClick: async () => {
-        await disconnect();
-      },
-      icon: HiLink,
-    },
-  ].filter(Boolean);
+    !connected
+      ? {
+          name: "Connect a Wallet",
+          onClick: () => setVisible(true),
+          icon: HiLink,
+        }
+      : false,
+    connected
+      ? {
+          name: "Disconnect",
+          onClick: async () => {
+            await disconnect();
+          },
+          icon: HiLink,
+        }
+      : false,
+  ].filter(Boolean) as INavItem[];
 
   return (
     <>
@@ -79,11 +83,12 @@ export function SessionPopoverPanel({
               </div>
             )}
 
-            {currentUser?.wallets.length > 0 && publicKey && (
-              <div className="p-3">
-                <ConnectedWalletMediaObject />
-              </div>
-            )}
+            {currentUser?.wallets.length ||
+              (0 > 0 && publicKey && (
+                <div className="p-3">
+                  <ConnectedWalletMediaObject />
+                </div>
+              ))}
             <VerticalNav
               navGroups={[[...walletNavItems, ...navItems]]}
               className="p-2"

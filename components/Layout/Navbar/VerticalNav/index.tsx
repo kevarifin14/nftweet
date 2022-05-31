@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 
+import { INavItem } from "components/Layout";
+
 import {
   classNames,
   downsize,
@@ -7,8 +9,6 @@ import {
   sizeToFontSizeClassName,
   TailwindSize,
 } from "lib/tailwind";
-
-import { INavItem } from "..";
 
 type VerticalNavProps = {
   navGroups: INavItem[][];
@@ -32,11 +32,11 @@ export function VerticalNav({
   const iconSizeClassName = sizeToDimensionsClassName[downsize(size)];
   const fontSizeClassName = sizeToFontSizeClassName[size];
 
-  const handleClickNavItem = (item) => {
+  const handleClickNavItem = (item: INavItem) => {
     if (item.href) {
       router.push(item.href);
-    } else {
-      item.onClick(item);
+    } else if (item.onClick) {
+      item.onClick();
     }
     onClick && onClick();
   };

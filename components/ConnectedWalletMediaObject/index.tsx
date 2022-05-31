@@ -3,7 +3,7 @@ import { shortenAddress } from "lib";
 
 import { MediaObject, MediaObjectProps } from "components/MediaObject";
 
-interface WalletMediaObjectProps extends MediaObjectProps {
+interface WalletMediaObjectProps extends Partial<MediaObjectProps> {
   title?: string;
 }
 

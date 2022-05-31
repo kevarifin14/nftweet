@@ -8,12 +8,18 @@ import { useCurrentUser } from "contexts/currentUser";
 import { shortenAddress } from "lib";
 import { useCallback } from "react";
 
-import { Button } from "components/Button";
+import { Button, ButtonType } from "components/Button";
 import { renderNotification } from "components/Notification";
 
 import { get, post } from "lib/http";
 
-export function ConnectWalletButton({ type = "primary" }) {
+type ConnectWalletButtonProps = {
+  type: ButtonType;
+};
+
+export function ConnectWalletButton({
+  type = "primary",
+}: ConnectWalletButtonProps) {
   const { wallet, signMessage, publicKey } = useWallet();
   const { setVisible } = useWalletModal();
   const { refreshCurrentUser } = useCurrentUser();
