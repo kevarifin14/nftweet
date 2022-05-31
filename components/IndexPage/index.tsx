@@ -307,9 +307,7 @@ export function IndexPage() {
                 window.open(`https://twitter.com/twitter/status/${tweetId}`)
               }
             >
-              <img
-                src={`https://nftweet-api.vercel.app/api/image?tweetId=${tweetId}`}
-              />
+              <img src={URL.createObjectURL(tweetImageBlob)} />
             </button>
           ) : (
             <div className="flex items-center justify-center h-full">
