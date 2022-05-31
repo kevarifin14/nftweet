@@ -1,14 +1,13 @@
-import useSWR from "swr";
-
-const fetcher = (...args) => fetch(...args).then((res) => res.blob());
+import { useEffect, useState } from "react";
 
 export const useTweetImageBufferString = (tweetId) => {
-  const { data: blobData } = useSWR(`/api/test?tweetId=${tweetId}`, fetcher);
-  if (blobData) {
-    const data = URL.createObjectURL(blobData!);
-
-    return { data, blob: blobData };
-  } else {
-    return {};
-  }
+  const [data, setData] = useState<Blob>();
+  useEffect(() => {
+    if (tweetId) {
+      fetch(`https://nftweet-api.vercel.app/api/image?tweetId=${tweetId}`)
+        .then((res) => res.blob())
+        .then((blob) => setData(blob));
+    }
+  }, [tweetId]);
+  return { data };
 };

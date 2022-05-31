@@ -8,8 +8,7 @@ import {
   AddWalletMutationVariables,
 } from "generated";
 import { SessionApiRequest, sessionMiddleware } from "middleware/session";
-import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+import { NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import nacl from "tweetnacl";
 
@@ -41,8 +40,6 @@ handler.get(
 
 handler.post(
   async (req: AuthenticatedApiRequest, res: NextApiResponse, next) => {
-    const session = await getSession({ req });
-
     const nonce = req.cookies["auth-nonce"];
 
     const message = `Sign this message to connect your wallet.\n\nNonce: ${nonce}`;

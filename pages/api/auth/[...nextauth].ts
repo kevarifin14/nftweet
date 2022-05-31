@@ -1,4 +1,3 @@
-import { adminApolloClient } from "contexts/apollo";
 import {
   UpsertUserDocument,
   UpsertUserMutation,
@@ -6,6 +5,8 @@ import {
 } from "generated";
 import NextAuth from "next-auth";
 import TwitterProvider from "next-auth/providers/twitter";
+
+import { adminApolloClient } from "../../../contexts/apollo";
 
 export default NextAuth({
   providers: [
