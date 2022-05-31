@@ -3,13 +3,18 @@ import {
   NftweetDocument,
   NftweetQuery,
   NftweetQueryVariables,
+  Nftweets,
 } from "generated";
 import { GetServerSideProps } from "next";
 
 import { getLayout } from "components/Layout";
 import { NftweetPage } from "components/NftweetPage";
 
-export default function Nftweet({ nftweet }) {
+type NftweetProps = {
+  nftweet: Nftweets;
+};
+
+export default function Nftweet({ nftweet }: NftweetProps) {
   return <NftweetPage nftweet={nftweet} />;
 }
 

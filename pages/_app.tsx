@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import "styles/globals.css";
 
 import { Providers } from "components/Providers";
+import { Seo } from "components/Seo";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -24,6 +25,9 @@ export default function App({
   return (
     <Providers session={session}>
       <Toaster />
+
+      <Seo />
+
       {getLayout(<Component {...pageProps} />)}
     </Providers>
   );

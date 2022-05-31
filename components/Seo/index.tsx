@@ -2,7 +2,7 @@ import { useMetadataContext } from "contexts/metadata";
 import { DefaultSeo, DefaultSeoProps } from "next-seo";
 
 export function Seo() {
-  const { name, description, url } = useMetadataContext();
+  const { name, description, url, handle } = useMetadataContext();
 
   const openGraph = {
     title: name,
@@ -18,7 +18,7 @@ export function Seo() {
 
   const twitter = {
     site: name,
-    handle: "@ThankYouTokens",
+    handle: handle,
     cardType: "summary_large_image",
   };
 
