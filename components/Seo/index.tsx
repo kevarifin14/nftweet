@@ -4,18 +4,13 @@ import { useRouter } from "next/router";
 
 export function Seo() {
   const { name, description, url, handle } = useMetadataContext();
-  const router = useRouter();
-
-  const thumbnail = router.query.tweetId
-    ? `https://nftweet-api.vercel.app/api/image?tweetId=${router.query.tweetId}`
-    : `${url}/thumbnail.png`;
 
   const openGraph = {
     title: name,
     description,
     url,
     type: "website",
-    images: [{ url: thumbnail }],
+    images: [{ url: `${url}/thumbnail.png` }],
   };
 
   const twitter = {

@@ -3,7 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { Nftweets } from "generated";
 import { useAtaForMint } from "hooks/useAtaForMint";
 import { useMetaplex } from "hooks/useMetaplex";
-import { basisPointsToPercent, shortenAddress } from "lib";
+import { basisPointsToPercent } from "lib";
 import _ from "lodash";
 import { useEffect, useState } from "react";
 

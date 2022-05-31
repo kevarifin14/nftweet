@@ -16,7 +16,7 @@ export const useMetaplex = () => {
       walletAdapterIdentity(wallet?.adapter!)
     );
     if (process.env.NODE_ENV === "development") {
-      metaplex.use(
+      instance.use(
         bundlrStorage({
           address: "https://devnet.bundlr.network",
           providerUrl: "https://api.devnet.solana.com",
