@@ -25,7 +25,7 @@ export function WalletConnectionProvider({
       : WalletAdapterNetwork.Mainnet;
 
   const endpoint = useMemo(() => {
-    if (process.env.NODE_ENV) {
+    if (process.env.NODE_ENV === "development") {
       return clusterApiUrl(network);
     } else {
       return "https://falling-withered-water.solana-mainnet.quiknode.pro/94ebe618ceec1f234f1d9346693e89feaf3bf3a7/";
