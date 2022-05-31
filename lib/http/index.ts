@@ -14,8 +14,8 @@ export function generateEndpoint(
   return `${endpoint}?${generateQueryString(params)}`;
 }
 
-export const get = async (endpoint: string, params: Record<string, any>) => {
-  const endpointWithParams = generateEndpoint(endpoint, params);
+export const get = async (endpoint: string, params?: Record<string, any>) => {
+  const endpointWithParams = generateEndpoint(endpoint, params || {});
   const response = await fetch(endpointWithParams);
 
   if (response.status === 200) {

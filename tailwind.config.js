@@ -27,9 +27,9 @@ const light = {
 
 const darkColor = colors.zinc;
 const dark = {
-  accent: darkColor[500],
-  light: darkColor[700],
-  DEFAULT: darkColor[800],
+  accent: darkColor[700],
+  light: darkColor[800],
+  DEFAULT: colors.black,
   dark: darkColor[900],
   ...darkColor,
 };
@@ -39,6 +39,9 @@ module.exports = {
   content: ["./pages/**/*.tsx", "./components/**/*.tsx", "./lib/**/*.ts"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Helvetica Neue"],
+      },
       colors: {
         light,
         dark,

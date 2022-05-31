@@ -18,7 +18,7 @@ export const sizeToMaxWClassName = {
 };
 
 export const sizeToSpaceYClassName = {
-  xs: "space-y-1",
+  xs: "space-y-0.5",
   sm: "space-y-1",
   md: "space-y-2",
   lg: "space-y-2",
@@ -93,6 +93,8 @@ export const downsize = (
   tailwindSize: TailwindSize,
   times = 1
 ): TailwindSize => {
+  if (times === 0) return tailwindSize;
+
   const downsized =
     tailwindSizes[Math.max(tailwindSizes.indexOf(tailwindSize) - 1, 0)];
   return times === 1 ? downsized : downsize(downsized, times - 1);

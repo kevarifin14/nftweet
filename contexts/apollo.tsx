@@ -7,9 +7,10 @@ import {
 } from "@apollo/client";
 import { ReactNode } from "react";
 
-export const createHasuraClient = () => {
+export const createApolloClient = (headers = {}) => {
   const httpLink = new HttpLink({
     uri: `${process.env.NEXT_PUBLIC_URL}/api/graphql`,
+    headers,
   });
 
   const link = ApolloLink.from([httpLink]);
@@ -18,7 +19,12 @@ export const createHasuraClient = () => {
   return new ApolloClient({ link, cache });
 };
 
-export const apolloClient = createHasuraClient();
+export const apolloClient = createApolloClient({
+  "x-hasura-role": "public",
+});
+export const adminApolloClient = createApolloClient({
+  "X-Hasura-Admin-Secret": process.env.HASURA_ADMIN_SECRET,
+});
 
 type ApolloClientProviderProps = {
   children: ReactNode;

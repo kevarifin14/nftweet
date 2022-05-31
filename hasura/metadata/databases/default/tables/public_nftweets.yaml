@@ -1,0 +1,21 @@
+table:
+  schema: public
+  name: nftweets
+insert_permissions:
+  - role: public
+    permission:
+      check: {}
+      columns:
+        - mintKey
+        - tweetId
+        - userId
+      backend_only: false
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - mintKey
+        - tweetId
+        - createdAt
+        - userId
+      filter: {}

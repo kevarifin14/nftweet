@@ -1,30 +1,47 @@
-import { apolloClient } from "contexts/apollo";
+import { adminApolloClient } from "contexts/apollo";
 import {
   UpsertUserDocument,
   UpsertUserMutation,
   UpsertUserMutationVariables,
 } from "generated";
 import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import TwitterProvider from "next-auth/providers/twitter";
 
 export default NextAuth({
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID!,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET!,
+      version: "2.0",
     }),
   ],
   events: {
     async signIn({ user, account }) {
-      if (account.provider === "google" && user) {
-        await apolloClient.mutate<
-          UpsertUserMutation,
-          UpsertUserMutationVariables
-        >({
-          mutation: UpsertUserDocument,
-          variables: { email: user.email! },
-        });
+      if (account.provider === "twitter" && user) {
+        try {
+          await adminApolloClient.mutate<
+            UpsertUserMutation,
+            UpsertUserMutationVariables
+          >({
+            mutation: UpsertUserDocument,
+            variables: {
+              email: user.email!,
+              twitterUserId: user.id!,
+              name: user.name!,
+              image: user.image!,
+            },
+          });
+        } catch (e) {
+          console.log(e);
+        }
       }
     },
+  },
+  pages: {
+    signIn: "/",
+    signOut: "/",
+    error: "/",
+    verifyRequest: "/",
+    newUser: "/",
   },
 });

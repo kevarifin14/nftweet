@@ -7,8 +7,8 @@ export type MetadataContextProps = {
 };
 
 const defaultMetadataContext = {
-  name: "Buidling Blocks",
-  description: "Buidl faster with Buidling Blocks",
+  name: "Make NFTweet",
+  description: "Turn your tweets into NFTs",
   url: process.env.NEXT_PUBLIC_URL!,
 };
 

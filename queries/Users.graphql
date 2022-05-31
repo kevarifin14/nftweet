@@ -1,6 +1,12 @@
 fragment UserFields on users {
   id
+  twitterUserId
 	email
+  name
+  image
+  wallets {
+    ...WalletFields
+  }
 }
 
 query Users {
@@ -9,14 +15,23 @@ query Users {
 	}
 }
 
+query UsersByName($name: String!) {
+  users(where: { name: { _eq: $name } }) {
+    ...UserFields
+  }
+}
+
 mutation AddUser($email: String!) {
   user: insert_users_one(object: { email: $email }) {
     ...UserFields
   }
 }
 
-mutation UpsertUser($email: String!) {
-  user: insert_users_one(object: { email: $email } ) {
+mutation UpsertUser($twitterUserId: String! $name: String! $image: String! $email: String) {
+  user: insert_users_one(
+    object: { email: $email, name: $name, image: $image, twitterUserId: $twitterUserId },
+    on_conflict: {constraint: users_twitterUserId_key, update_columns: [name, image]}
+  ) {
     ...UserFields
   }
 }

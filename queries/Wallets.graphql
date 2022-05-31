@@ -1,0 +1,9 @@
+fragment WalletFields on wallets {
+  key
+}
+
+mutation AddWallet($key: String!, $userId: uuid!) {
+  wallet: insert_wallets_one(object: { key: $key, userId: $userId }) {
+    ...WalletFields
+  }
+}

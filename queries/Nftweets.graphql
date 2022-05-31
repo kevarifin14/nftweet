@@ -1,0 +1,23 @@
+fragment NftweetFields on nftweets {
+  mintKey
+  tweetId
+  userId
+}
+
+query Nftweet($mintKey: String!) {
+  nftweet: nftweets_by_pk(mintKey: $mintKey) {
+    ...NftweetFields
+  }
+}
+
+query NftweetsByTweetId($tweetId: String!) {
+  nftweets(where: {tweetId: {_eq: $tweetId}}) {
+    ...NftweetFields
+  }
+}
+
+mutation AddNftweet($mintKey: String! $tweetId: String! $userId: uuid!) {
+  nftweet: insert_nftweets_one(object: {mintKey: $mintKey, tweetId: $tweetId, userId: $userId}) {
+    ...NftweetFields
+  }
+}

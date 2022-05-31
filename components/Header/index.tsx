@@ -34,15 +34,15 @@ export function Header({
   loading,
 }: HeaderProps) {
   const headerClassName = classNames(
-    "prose dark:prose-invert max-w-none flex",
+    "prose dark:prose-invert max-w-none flex whitespace-normal",
     vertical ? "flex-col space-y-2" : "items-center justify-between",
     centered ? "flex-col justify-center text-center" : "text-left",
     className
   );
 
   const headerFontSizeClassName = sizeToFontSizeClassName[size];
-  const subHeaderFontSizeClassName = sizeToFontSizeClassName[downsize(size, 3)];
-  const ctaFontSizeClassName = sizeToFontSizeClassName[downsize(size, 2)];
+  const subHeaderFontSizeClassName = sizeToFontSizeClassName[downsize(size, 0)];
+  const ctaFontSizeClassName = sizeToFontSizeClassName[downsize(size, 1)];
 
   if (loading) {
     return (
@@ -69,29 +69,27 @@ export function Header({
           {`## ${title}`}
         </ReactMarkdown>
 
-        <div>
-          {description && (
-            <ReactMarkdown
-              components={{
-                p: ({ node, ...props }) => (
-                  <p {...props} className={classNames("my-0")} />
-                ),
-              }}
-              className={classNames(
-                subHeaderFontSizeClassName,
-                sizeToSpaceYClassName[size]
-              )}
-            >
-              {description}
-            </ReactMarkdown>
-          )}
-        </div>
+        {description && (
+          <ReactMarkdown
+            components={{
+              p: ({ node, ...props }) => (
+                <p {...props} className={classNames("my-0")} />
+              ),
+            }}
+            className={classNames(
+              subHeaderFontSizeClassName,
+              sizeToSpaceYClassName[size]
+            )}
+          >
+            {description}
+          </ReactMarkdown>
+        )}
       </div>
 
       {cta && ctaOnClick && (
         <div className="flex-shrink-0">
           <button
-            className={classNames("text-secondary", ctaFontSizeClassName)}
+            className={classNames("text-primary", ctaFontSizeClassName)}
             onClick={ctaOnClick}
           >
             {cta}
