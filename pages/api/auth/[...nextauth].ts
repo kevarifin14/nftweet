@@ -44,4 +44,5 @@ export default NextAuth({
     verifyRequest: "/",
     newUser: "/",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 });

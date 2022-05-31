@@ -1,17 +1,29 @@
+import chromium from "chrome-aws-lambda";
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import puppeteer from "puppeteer";
-
-import { post } from "lib/http";
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
 handler.get(async (req, res, next) => {
   try {
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
+    const browser =
+      process.env.NODE_ENV === "development"
+        ? await puppeteer.launch({
+            headless: true,
+            args: ["--no-sandbox", "--disable-setuid-sandbox"],
+          })
+        : await chromium.puppeteer.launch({
+            args: [
+              ...chromium.args,
+              "--hide-scrollbars",
+              "--disable-web-security",
+            ],
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath,
+            headless: true,
+            ignoreHTTPSErrors: true,
+          });
     const page = await browser.newPage();
     const tweetId = req.query.tweetId;
 
