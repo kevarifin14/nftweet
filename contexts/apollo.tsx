@@ -24,7 +24,7 @@ export const apolloClient = createApolloClient({
 });
 export const createAdminApolloClient = () =>
   createApolloClient({
-    "X-Hasura-Admin-Secret": process.env.HASURA_ADMIN_SECRET,
+    "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
   });
 
 type ApolloClientProviderProps = {
