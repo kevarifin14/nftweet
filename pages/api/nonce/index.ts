@@ -42,7 +42,6 @@ handler.get(
 handler.post(
   async (req: AuthenticatedApiRequest, res: NextApiResponse, next) => {
     const session = await getSession({ req });
-    console.log(session);
 
     const nonce = req.cookies["auth-nonce"];
 

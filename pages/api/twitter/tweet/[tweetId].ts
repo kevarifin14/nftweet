@@ -22,7 +22,6 @@ handler.get(async (req, res, next) => {
         "tweet.fields": ["created_at", "text"],
       }
     );
-    console.log(value);
     res.status(200).json(value);
   } catch (e) {
     res.status(400).json(e);

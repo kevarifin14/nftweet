@@ -1,42 +1,32 @@
 import chromium from "chrome-aws-lambda";
 import { NextApiRequest, NextApiResponse } from "next";
-import nextConnect from "next-connect";
-import puppeteer from "puppeteer-core";
+import playwright from "playwright-core";
 
-const handler = nextConnect<NextApiRequest, NextApiResponse>();
-
-handler.get(async (req, res, next) => {
+const generateImage = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const browser =
-      process.env.NODE_ENV === "development"
-        ? await puppeteer.launch({
-            headless: true,
-            args: ["--no-sandbox", "--disable-setuid-sandbox"],
-          })
-        : await chromium.puppeteer.launch({
-            args: [
-              ...chromium.args,
-              "--hide-scrollbars",
-              "--disable-web-security",
-            ],
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath,
-            headless: true,
-            ignoreHTTPSErrors: true,
-          });
+    const browser = await playwright.chromium.launch({
+      args: chromium.args,
+      executablePath:
+        process.env.NODE_ENV !== "development"
+          ? await chromium.executablePath
+          : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      headless:
+        process.env.NODE_ENV !== "development" ? chromium.headless : true,
+    });
+
     const page = await browser.newPage();
     const tweetId = req.query.tweetId;
 
     await page.goto(
       `https://platform.twitter.com/embed/index.html?dnt=true&embedId=twitter-widget-0&frame=false&hideCard=falsen&hideThread=true&id=${tweetId}&theme=dark&widgetsVersion=ed20a2b%3A1601588405575`,
-      { waitUntil: "networkidle0" }
+      { waitUntil: "networkidle" }
     );
 
     const embedDefaultWidth = 550;
     const percent = 1000 / embedDefaultWidth;
     const pageWidth = embedDefaultWidth * percent;
     const pageHeight = 100;
-    await page.setViewport({ width: pageWidth, height: pageHeight });
+    await page.setViewportSize({ width: pageWidth, height: pageHeight });
 
     await page.evaluate(
       (props) => {
@@ -57,20 +47,19 @@ handler.get(async (req, res, next) => {
       { percent }
     );
 
-    const imageBuffer = await page.screenshot({
+    const data = await page.screenshot({
       type: "png",
       fullPage: true,
-      encoding: "base64",
     });
 
     await browser.close();
 
-    res.status(200).json({ test: imageBuffer });
+    res.setHeader("Content-Type", "image/png");
+    res.end(data);
   } catch (e) {
     res.status(400).json(e);
     console.log(e);
   }
-  return next;
-});
+};
 
-export default handler;
+export default generateImage;

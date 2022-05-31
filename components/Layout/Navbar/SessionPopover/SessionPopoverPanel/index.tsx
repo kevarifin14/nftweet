@@ -83,12 +83,13 @@ export function SessionPopoverPanel({
               </div>
             )}
 
-            {currentUser?.wallets.length ||
-              (0 > 0 && publicKey && (
+            {currentUser?.wallets &&
+              currentUser?.wallets.length > 0 &&
+              publicKey && (
                 <div className="p-3">
                   <ConnectedWalletMediaObject />
                 </div>
-              ))}
+              )}
             <VerticalNav
               navGroups={[[...walletNavItems, ...navItems]]}
               className="p-2"

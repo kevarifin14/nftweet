@@ -1,9 +1,14 @@
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (...args) => fetch(...args).then((res) => res.blob());
 
 export const useTweetImageBufferString = (tweetId) => {
-  const { data } = useSWR(`/api/test?tweetId=${tweetId}`, fetcher);
+  const { data: blobData } = useSWR(`/api/test?tweetId=${tweetId}`, fetcher);
+  if (blobData) {
+    const data = URL.createObjectURL(blobData!);
 
-  return { data };
+    return { data, blob: blobData };
+  } else {
+    return {};
+  }
 };

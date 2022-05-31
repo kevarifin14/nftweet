@@ -34,7 +34,7 @@ export function IndexPage() {
   const metadata = useMemo(() => generateTweetMetadata(data!), [data]);
   const [metadataUri, setMetadataUri] = useState("");
   const [transactionId, setTransactionId] = useState("");
-  const { data: tweetImageBufferStringData } =
+  const { data: tweetImageBufferStringData, blob } =
     useTweetImageBufferString(tweetId);
   const [addNftweet, { data: newNftweetData }] = useAddNftweetMutation();
   const { data: nftweetsData } = useNftweetsByTweetIdQuery({
@@ -108,15 +108,7 @@ export function IndexPage() {
       toggleUploading();
       try {
         const metaplexFile = await MetaplexFile.fromFile(
-          new File(
-            [
-              new Blob([
-                Buffer.from(tweetImageBufferStringData.test!, "base64"),
-              ]),
-            ],
-            "0.png",
-            { type: "image/png" }
-          )
+          new File([blob], "0.png", { type: "image/png" })
         );
         const uploadMetadataResult = await metaplex.nfts().uploadMetadata({
           ...metadata,
@@ -316,9 +308,7 @@ export function IndexPage() {
                 window.open(`https://twitter.com/twitter/status/${tweetId}`)
               }
             >
-              <img
-                src={`data:image/png;base64,${tweetImageBufferStringData.test}`}
-              />
+              <img src={tweetImageBufferStringData} />
             </button>
           ) : (
             <div className="flex items-center justify-center h-full">
@@ -330,7 +320,7 @@ export function IndexPage() {
 
       {/* <ConnectWalletButton /> */}
 
-      {!processing && tweetImageBufferStringData?.test && (
+      {!processing && tweetImageBufferStringData && (
         <div className="flex justify-center">
           <Button size="xl" type="primary" onClick={handleProcessMint}>
             Mint NFTweet
