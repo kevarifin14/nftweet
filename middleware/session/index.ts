@@ -1,4 +1,4 @@
-import { adminApolloClient } from "contexts/apollo";
+import { createAdminApolloClient } from "contexts/apollo";
 import {
   Users,
   UsersByNameDocument,
@@ -23,6 +23,7 @@ export const sessionMiddleware = async (
   const session = await getSession({ req });
 
   if (session?.user) {
+    const adminApolloClient = createAdminApolloClient();
     const { data } = await adminApolloClient.query<
       UsersByNameQuery,
       UsersByNameQueryVariables

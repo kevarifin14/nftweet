@@ -6,7 +6,7 @@ import {
 import NextAuth from "next-auth";
 import TwitterProvider from "next-auth/providers/twitter";
 
-import { adminApolloClient } from "../../../contexts/apollo";
+import { createAdminApolloClient } from "../../../contexts/apollo";
 
 export default NextAuth({
   providers: [
@@ -20,6 +20,7 @@ export default NextAuth({
     async signIn({ user, account }) {
       if (account.provider === "twitter" && user) {
         try {
+          const adminApolloClient = createAdminApolloClient();
           await adminApolloClient.mutate<
             UpsertUserMutation,
             UpsertUserMutationVariables

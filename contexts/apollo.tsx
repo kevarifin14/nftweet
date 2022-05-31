@@ -22,9 +22,10 @@ export const createApolloClient = (headers = {}) => {
 export const apolloClient = createApolloClient({
   "x-hasura-role": "public",
 });
-export const adminApolloClient = createApolloClient({
-  "X-Hasura-Admin-Secret": process.env.HASURA_ADMIN_SECRET,
-});
+export const createAdminApolloClient = () =>
+  createApolloClient({
+    "X-Hasura-Admin-Secret": process.env.HASURA_ADMIN_SECRET,
+  });
 
 type ApolloClientProviderProps = {
   children: ReactNode;

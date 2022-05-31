@@ -1,5 +1,5 @@
 import bs58 from "bs58";
-import { adminApolloClient } from "contexts/apollo";
+import { createAdminApolloClient } from "contexts/apollo";
 import { serialize } from "cookie";
 import crypto from "crypto";
 import {
@@ -59,6 +59,7 @@ handler.post(
     }
 
     try {
+      const adminApolloClient = createAdminApolloClient();
       const { data } = await adminApolloClient.mutate<
         AddWalletMutation,
         AddWalletMutationVariables
