@@ -10,7 +10,7 @@ export function Seo() {
     description,
     url,
     type: "website",
-    images: [{ url: `${url}/thumbnail.png` }],
+    // images: [{ url: `${url}/thumbnail.png` }],
   };
 
   const twitter = {

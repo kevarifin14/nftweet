@@ -12,10 +12,15 @@ export default function Index({ tweetId }: IndexProps) {
   return (
     <>
       <Head>
-        {tweetId && (
+        {tweetId ? (
           <meta
             name="og:image"
             content={`https://nftweet-api.vercel.app/api/image?tweetId=${tweetId}`}
+          />
+        ) : (
+          <meta
+            name="og:image"
+            content={`${process.env.NEXT_PUBLIC_URL}/thumbnail.png`}
           />
         )}
       </Head>
