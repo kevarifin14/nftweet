@@ -44,10 +44,10 @@ export function NftweetCard({ nftweet, nft }: NftweetCardProps) {
                   (attribute) => attribute.trait_type === "Timestamp"
                 )?.value as number
               ),
-              "MMMM dd, yyyy mm:hh a"
+              "MMMM dd, yyyy hh:mm a"
             )}\n\nMinted ${format(
               new Date(nftweet.createdAt),
-              "MMMM dd, yyyy mm:hh a"
+              "MMMM dd, yyyy hh:mm a"
             )}`
           }
           size="xs"
