@@ -6,12 +6,18 @@ type CardProps = {
   children: ReactNode;
   className?: string;
   size?: TailwindSize;
+  noPadding: boolean;
 };
 
-export function Card({ className, children, size = "md" }: CardProps) {
+export function Card({
+  className,
+  children,
+  size = "md",
+  noPadding,
+}: CardProps) {
   const cardClassName = classNames(
     "bg-light-dark dark:bg-dark-light rounded-md",
-    sizeToPaddingClassName[size],
+    noPadding ? "" : sizeToPaddingClassName[size],
     className
   );
 

@@ -1,6 +1,6 @@
-import { GetServerSideProps } from "next";
-import Head from "next/head";
+import { useRouter } from "next/router";
 
+import { HomePage } from "components/HomePage";
 import { IndexPage } from "components/IndexPage";
 import { getLayout } from "components/Layout";
 
@@ -9,29 +9,13 @@ type IndexProps = {
 };
 
 export default function Index({ tweetId }: IndexProps) {
-  return (
-    <>
-      <Head>
-        {tweetId ? (
-          <meta
-            name="og:image"
-            content={`https://nftweet-api.vercel.app/api/image?tweetId=${tweetId}`}
-          />
-        ) : (
-          <meta
-            name="og:image"
-            content={`${process.env.NEXT_PUBLIC_URL}/thumbnail.png`}
-          />
-        )}
-      </Head>
+  const router = useRouter();
 
-      <IndexPage />
-    </>
-  );
+  if (router.query.tweetId) {
+    return <IndexPage />;
+  } else {
+    return <HomePage />;
+  }
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  return { props: { tweetId: context.query.tweetId } };
-};
 
 Index.getLayout = getLayout;

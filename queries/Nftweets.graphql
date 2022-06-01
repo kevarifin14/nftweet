@@ -2,10 +2,17 @@ fragment NftweetFields on nftweets {
   mintKey
   tweetId
   userId
+  createdAt
 }
 
 query Nftweet($mintKey: String!) {
   nftweet: nftweets_by_pk(mintKey: $mintKey) {
+    ...NftweetFields
+  }
+}
+
+query Nftweets {
+  nftweets(order_by: {createdAt: desc}) {
     ...NftweetFields
   }
 }
