@@ -3,6 +3,7 @@ fragment NftweetFields on nftweets {
   tweetId
   userId
   createdAt
+  image
   user {
     ...UserFields
   }
@@ -26,8 +27,8 @@ query NftweetsByTweetId($tweetId: String!) {
   }
 }
 
-mutation AddNftweet($mintKey: String! $tweetId: String! $userId: uuid!) {
-  nftweet: insert_nftweets_one(object: {mintKey: $mintKey, tweetId: $tweetId, userId: $userId}) {
+mutation AddNftweet($mintKey: String! $tweetId: String! $userId: uuid! $image: String!) {
+  nftweet: insert_nftweets_one(object: {mintKey: $mintKey, tweetId: $tweetId, userId: $userId, image: $image}) {
     ...NftweetFields
   }
 }

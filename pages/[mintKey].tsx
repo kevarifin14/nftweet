@@ -6,6 +6,7 @@ import {
   Nftweets,
 } from "generated";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 
 import { getLayout } from "components/Layout";
 import { NftweetPage } from "components/NftweetPage";
@@ -15,7 +16,15 @@ type NftweetProps = {
 };
 
 export default function Nftweet({ nftweet }: NftweetProps) {
-  return <NftweetPage nftweet={nftweet} />;
+  return (
+    <>
+      <Head>
+        <meta property="og:image" content={nftweet.image!} />
+      </Head>
+
+      <NftweetPage nftweet={nftweet} />
+    </>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

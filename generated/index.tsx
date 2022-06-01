@@ -204,6 +204,7 @@ export type Mutation_RootUpdate_Wallets_By_PkArgs = {
 export type Nftweets = {
   __typename?: "nftweets";
   createdAt: Scalars["timestamptz"];
+  image?: Maybe<Scalars["String"]>;
   mintKey: Scalars["String"];
   tweetId: Scalars["String"];
   /** An object relationship */
@@ -238,6 +239,7 @@ export type Nftweets_Bool_Exp = {
   _not?: InputMaybe<Nftweets_Bool_Exp>;
   _or?: InputMaybe<Array<Nftweets_Bool_Exp>>;
   createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  image?: InputMaybe<String_Comparison_Exp>;
   mintKey?: InputMaybe<String_Comparison_Exp>;
   tweetId?: InputMaybe<String_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
@@ -253,6 +255,7 @@ export enum Nftweets_Constraint {
 /** input type for inserting data into table "nftweets" */
 export type Nftweets_Insert_Input = {
   createdAt?: InputMaybe<Scalars["timestamptz"]>;
+  image?: InputMaybe<Scalars["String"]>;
   mintKey?: InputMaybe<Scalars["String"]>;
   tweetId?: InputMaybe<Scalars["String"]>;
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
@@ -263,6 +266,7 @@ export type Nftweets_Insert_Input = {
 export type Nftweets_Max_Fields = {
   __typename?: "nftweets_max_fields";
   createdAt?: Maybe<Scalars["timestamptz"]>;
+  image?: Maybe<Scalars["String"]>;
   mintKey?: Maybe<Scalars["String"]>;
   tweetId?: Maybe<Scalars["String"]>;
   userId?: Maybe<Scalars["uuid"]>;
@@ -272,6 +276,7 @@ export type Nftweets_Max_Fields = {
 export type Nftweets_Min_Fields = {
   __typename?: "nftweets_min_fields";
   createdAt?: Maybe<Scalars["timestamptz"]>;
+  image?: Maybe<Scalars["String"]>;
   mintKey?: Maybe<Scalars["String"]>;
   tweetId?: Maybe<Scalars["String"]>;
   userId?: Maybe<Scalars["uuid"]>;
@@ -296,6 +301,7 @@ export type Nftweets_On_Conflict = {
 /** Ordering options when selecting data from "nftweets". */
 export type Nftweets_Order_By = {
   createdAt?: InputMaybe<Order_By>;
+  image?: InputMaybe<Order_By>;
   mintKey?: InputMaybe<Order_By>;
   tweetId?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
@@ -312,6 +318,8 @@ export enum Nftweets_Select_Column {
   /** column name */
   CreatedAt = "createdAt",
   /** column name */
+  Image = "image",
+  /** column name */
   MintKey = "mintKey",
   /** column name */
   TweetId = "tweetId",
@@ -322,6 +330,7 @@ export enum Nftweets_Select_Column {
 /** input type for updating data in table "nftweets" */
 export type Nftweets_Set_Input = {
   createdAt?: InputMaybe<Scalars["timestamptz"]>;
+  image?: InputMaybe<Scalars["String"]>;
   mintKey?: InputMaybe<Scalars["String"]>;
   tweetId?: InputMaybe<Scalars["String"]>;
   userId?: InputMaybe<Scalars["uuid"]>;
@@ -331,6 +340,8 @@ export type Nftweets_Set_Input = {
 export enum Nftweets_Update_Column {
   /** column name */
   CreatedAt = "createdAt",
+  /** column name */
+  Image = "image",
   /** column name */
   MintKey = "mintKey",
   /** column name */
@@ -895,6 +906,7 @@ export type NftweetFieldsFragment = {
   tweetId: string;
   userId: any;
   createdAt: any;
+  image?: string | null;
   user?: {
     __typename?: "users";
     id: any;
@@ -918,6 +930,7 @@ export type NftweetQuery = {
     tweetId: string;
     userId: any;
     createdAt: any;
+    image?: string | null;
     user?: {
       __typename?: "users";
       id: any;
@@ -940,6 +953,7 @@ export type NftweetsQuery = {
     tweetId: string;
     userId: any;
     createdAt: any;
+    image?: string | null;
     user?: {
       __typename?: "users";
       id: any;
@@ -964,6 +978,7 @@ export type NftweetsByTweetIdQuery = {
     tweetId: string;
     userId: any;
     createdAt: any;
+    image?: string | null;
     user?: {
       __typename?: "users";
       id: any;
@@ -980,6 +995,7 @@ export type AddNftweetMutationVariables = Exact<{
   mintKey: Scalars["String"];
   tweetId: Scalars["String"];
   userId: Scalars["uuid"];
+  image: Scalars["String"];
 }>;
 
 export type AddNftweetMutation = {
@@ -990,6 +1006,7 @@ export type AddNftweetMutation = {
     tweetId: string;
     userId: any;
     createdAt: any;
+    image?: string | null;
     user?: {
       __typename?: "users";
       id: any;
@@ -1138,6 +1155,7 @@ export const NftweetFieldsFragmentDoc = gql`
     tweetId
     userId
     createdAt
+    image
     user {
       ...UserFields
     }
@@ -1306,9 +1324,19 @@ export type NftweetsByTweetIdQueryResult = Apollo.QueryResult<
   NftweetsByTweetIdQueryVariables
 >;
 export const AddNftweetDocument = gql`
-  mutation AddNftweet($mintKey: String!, $tweetId: String!, $userId: uuid!) {
+  mutation AddNftweet(
+    $mintKey: String!
+    $tweetId: String!
+    $userId: uuid!
+    $image: String!
+  ) {
     nftweet: insert_nftweets_one(
-      object: { mintKey: $mintKey, tweetId: $tweetId, userId: $userId }
+      object: {
+        mintKey: $mintKey
+        tweetId: $tweetId
+        userId: $userId
+        image: $image
+      }
     ) {
       ...NftweetFields
     }
@@ -1336,6 +1364,7 @@ export type AddNftweetMutationFn = Apollo.MutationFunction<
  *      mintKey: // value for 'mintKey'
  *      tweetId: // value for 'tweetId'
  *      userId: // value for 'userId'
+ *      image: // value for 'image'
  *   },
  * });
  */

@@ -33,6 +33,7 @@ export function IndexPage() {
   const { setVisible } = useWalletModal();
   const metadata = useMemo(() => generateTweetMetadata(data!), [data]);
   const [metadataUri, setMetadataUri] = useState("");
+  const [image, setImage] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const { data: tweetImageBlob } = useTweetImageBufferString(tweetId);
   const [addNftweet, { data: newNftweetData }] = useAddNftweetMutation();
@@ -56,6 +57,7 @@ export function IndexPage() {
 
   const handleRestartMint = () => {
     setMetadataUri("");
+    setImage("");
     setTransactionId("");
     toggleProcessing();
   };
@@ -103,7 +105,8 @@ export function IndexPage() {
 
   const handleMint = async () => {
     let uri = metadataUri;
-    if (!metadataUri) {
+    let nftImage = image;
+    if (!uri || !nftImage) {
       toggleUploading();
       try {
         const metaplexFile = await MetaplexFile.fromFile(
@@ -123,8 +126,10 @@ export function IndexPage() {
           },
         });
         uri = uploadMetadataResult.uri;
+        nftImage = uploadMetadataResult.metadata.image!;
 
         setMetadataUri(uri);
+        setImage(nftImage);
         toggleUploading();
       } catch (e) {
         toggleUploading();
@@ -145,6 +150,7 @@ export function IndexPage() {
             userId: currentUser?.id,
             mintKey: mint.publicKey.toString(),
             tweetId: data?.data?.id!,
+            image: nftImage,
           },
         });
         toggleMinting();
