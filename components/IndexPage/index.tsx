@@ -168,7 +168,7 @@ export function IndexPage() {
   }
 
   return (
-    <Container size="5xl" className="space-y-8">
+    <Container size="5xl" className="space-y-8 py-4">
       <div className="grid lg:grid-cols-2 gap-8">
         {processing ? (
           <div className="space-y-4">
@@ -298,6 +298,20 @@ export function IndexPage() {
         ) : (
           <div className="space-y-4">
             <NfTweetMetadata tweetId={tweetId! as string} />
+
+            {!processing && tweetImageBlob && (
+              <div className="flex flex-col space-y-2">
+                <Button
+                  size="xl"
+                  type="primary"
+                  onClick={handleProcessMint}
+                  block
+                >
+                  Mint NFTweet
+                </Button>
+                <p className="text-sm text-center prose dark:prose-invert">{`Minting an NFTweet is free, just like it should be. Just cover network costs.`}</p>
+              </div>
+            )}
           </div>
         )}
 
@@ -317,16 +331,6 @@ export function IndexPage() {
           )}
         </div>
       </div>
-
-      {/* <ConnectWalletButton /> */}
-
-      {!processing && tweetImageBlob && (
-        <div className="flex justify-center">
-          <Button size="xl" type="primary" onClick={handleProcessMint}>
-            Mint NFTweet
-          </Button>
-        </div>
-      )}
     </Container>
   );
 }
