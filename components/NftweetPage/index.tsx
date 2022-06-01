@@ -15,6 +15,8 @@ import { Header } from "components/Header";
 import { LoadingPage } from "components/Layout/LoadingPage";
 import { renderNotification } from "components/Notification";
 
+import { trackMakeAnOfferInterest } from "lib/analytics";
+
 import { PublicKeyLink } from "./PublicKeyLink";
 
 type NftweetPageProps = {
@@ -37,7 +39,8 @@ export function NftweetPage({ nftweet }: NftweetPageProps) {
   }
 
   const handleMakeAnOffer = () => {
-    renderNotification({ title: "NFTweet marketplace coming soon!" });
+    trackMakeAnOfferInterest();
+    renderNotification({ title: "Coming Soon!" });
   };
 
   return (

@@ -1,6 +1,5 @@
 import { Nft } from "@metaplex-foundation/js-next";
 import { PublicKey } from "@solana/web3.js";
-import { useMetaplexTokenMetadata } from "@strata-foundation/react";
 import { useNftweetsQuery } from "generated";
 import { useMetaplex } from "hooks/useMetaplex";
 import _ from "lodash";
@@ -10,8 +9,6 @@ import { useEffect, useState } from "react";
 import { Container } from "components/Container";
 import { Header } from "components/Header";
 import { LoadingPage } from "components/Layout/LoadingPage";
-
-import { classNames } from "lib/tailwind";
 
 import { NftweetCard } from "./NftweetCard";
 

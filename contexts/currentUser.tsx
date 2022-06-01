@@ -9,6 +9,8 @@ import { ConnectWalletButton } from "components/ConnectWalletButton";
 import { Header } from "components/Header";
 import { Modal } from "components/Modal";
 
+import { analytics, identify } from "lib/analytics";
+
 export type CurrentUserContextProps = {
   currentUser?: Users;
   loading: boolean;
@@ -39,7 +41,10 @@ export function CurrentUserProvider({ children }: CurrentUserProviderProps) {
     data: usersData,
     loading: loadingUser,
     refetch,
-  } = useUsersByNameQuery({ variables: { name: data?.user?.name! } });
+  } = useUsersByNameQuery({
+    variables: { name: data?.user?.name! },
+    onCompleted: (data) => identify(data?.users[0]!),
+  });
   const loading = status === "loading" || loadingUser;
   const currentUser = usersData?.users[0];
 

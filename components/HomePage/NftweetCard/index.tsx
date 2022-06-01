@@ -8,8 +8,6 @@ import { Header } from "components/Header";
 
 import { classNames } from "lib/tailwind";
 
-// import { useMetaplexTokenMetadata } from "@strata-foundation/react";
-
 type NftweetCardProps = {
   nftweet: Nftweets;
   nft: Nft;
