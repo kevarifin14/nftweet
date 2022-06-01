@@ -204,9 +204,10 @@ export type Mutation_RootUpdate_Wallets_By_PkArgs = {
 export type Nftweets = {
   __typename?: "nftweets";
   createdAt: Scalars["timestamptz"];
-  image?: Maybe<Scalars["String"]>;
   mintKey: Scalars["String"];
   tweetId: Scalars["String"];
+  /** An object relationship */
+  user?: Maybe<Users>;
   userId: Scalars["uuid"];
 };
 
@@ -237,9 +238,9 @@ export type Nftweets_Bool_Exp = {
   _not?: InputMaybe<Nftweets_Bool_Exp>;
   _or?: InputMaybe<Array<Nftweets_Bool_Exp>>;
   createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
-  image?: InputMaybe<String_Comparison_Exp>;
   mintKey?: InputMaybe<String_Comparison_Exp>;
   tweetId?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
   userId?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
@@ -252,9 +253,9 @@ export enum Nftweets_Constraint {
 /** input type for inserting data into table "nftweets" */
 export type Nftweets_Insert_Input = {
   createdAt?: InputMaybe<Scalars["timestamptz"]>;
-  image?: InputMaybe<Scalars["String"]>;
   mintKey?: InputMaybe<Scalars["String"]>;
   tweetId?: InputMaybe<Scalars["String"]>;
+  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
   userId?: InputMaybe<Scalars["uuid"]>;
 };
 
@@ -262,7 +263,6 @@ export type Nftweets_Insert_Input = {
 export type Nftweets_Max_Fields = {
   __typename?: "nftweets_max_fields";
   createdAt?: Maybe<Scalars["timestamptz"]>;
-  image?: Maybe<Scalars["String"]>;
   mintKey?: Maybe<Scalars["String"]>;
   tweetId?: Maybe<Scalars["String"]>;
   userId?: Maybe<Scalars["uuid"]>;
@@ -272,7 +272,6 @@ export type Nftweets_Max_Fields = {
 export type Nftweets_Min_Fields = {
   __typename?: "nftweets_min_fields";
   createdAt?: Maybe<Scalars["timestamptz"]>;
-  image?: Maybe<Scalars["String"]>;
   mintKey?: Maybe<Scalars["String"]>;
   tweetId?: Maybe<Scalars["String"]>;
   userId?: Maybe<Scalars["uuid"]>;
@@ -297,9 +296,9 @@ export type Nftweets_On_Conflict = {
 /** Ordering options when selecting data from "nftweets". */
 export type Nftweets_Order_By = {
   createdAt?: InputMaybe<Order_By>;
-  image?: InputMaybe<Order_By>;
   mintKey?: InputMaybe<Order_By>;
   tweetId?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
   userId?: InputMaybe<Order_By>;
 };
 
@@ -313,8 +312,6 @@ export enum Nftweets_Select_Column {
   /** column name */
   CreatedAt = "createdAt",
   /** column name */
-  Image = "image",
-  /** column name */
   MintKey = "mintKey",
   /** column name */
   TweetId = "tweetId",
@@ -325,7 +322,6 @@ export enum Nftweets_Select_Column {
 /** input type for updating data in table "nftweets" */
 export type Nftweets_Set_Input = {
   createdAt?: InputMaybe<Scalars["timestamptz"]>;
-  image?: InputMaybe<Scalars["String"]>;
   mintKey?: InputMaybe<Scalars["String"]>;
   tweetId?: InputMaybe<Scalars["String"]>;
   userId?: InputMaybe<Scalars["uuid"]>;
@@ -335,8 +331,6 @@ export type Nftweets_Set_Input = {
 export enum Nftweets_Update_Column {
   /** column name */
   CreatedAt = "createdAt",
-  /** column name */
-  Image = "image",
   /** column name */
   MintKey = "mintKey",
   /** column name */
@@ -375,7 +369,7 @@ export type Query_Root = {
   users_aggregate: Users_Aggregate;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
-  /** fetch data from the table: "wallets" */
+  /** An array relationship */
   wallets: Array<Wallets>;
   /** An aggregate relationship */
   wallets_aggregate: Wallets_Aggregate;
@@ -457,7 +451,7 @@ export type Subscription_Root = {
   users_aggregate: Users_Aggregate;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
-  /** fetch data from the table: "wallets" */
+  /** An array relationship */
   wallets: Array<Wallets>;
   /** An aggregate relationship */
   wallets_aggregate: Wallets_Aggregate;
@@ -548,7 +542,7 @@ export type Users = {
   name: Scalars["String"];
   twitterUserId: Scalars["String"];
   updatedAt: Scalars["timestamptz"];
-  /** fetch data from the table: "wallets" */
+  /** An array relationship */
   wallets: Array<Wallets>;
   /** An aggregate relationship */
   wallets_aggregate: Wallets_Aggregate;
@@ -901,6 +895,15 @@ export type NftweetFieldsFragment = {
   tweetId: string;
   userId: any;
   createdAt: any;
+  user?: {
+    __typename?: "users";
+    id: any;
+    twitterUserId: string;
+    email?: string | null;
+    name: string;
+    image: string;
+    wallets: Array<{ __typename?: "wallets"; key: string }>;
+  } | null;
 };
 
 export type NftweetQueryVariables = Exact<{
@@ -915,6 +918,15 @@ export type NftweetQuery = {
     tweetId: string;
     userId: any;
     createdAt: any;
+    user?: {
+      __typename?: "users";
+      id: any;
+      twitterUserId: string;
+      email?: string | null;
+      name: string;
+      image: string;
+      wallets: Array<{ __typename?: "wallets"; key: string }>;
+    } | null;
   } | null;
 };
 
@@ -928,6 +940,15 @@ export type NftweetsQuery = {
     tweetId: string;
     userId: any;
     createdAt: any;
+    user?: {
+      __typename?: "users";
+      id: any;
+      twitterUserId: string;
+      email?: string | null;
+      name: string;
+      image: string;
+      wallets: Array<{ __typename?: "wallets"; key: string }>;
+    } | null;
   }>;
 };
 
@@ -943,6 +964,15 @@ export type NftweetsByTweetIdQuery = {
     tweetId: string;
     userId: any;
     createdAt: any;
+    user?: {
+      __typename?: "users";
+      id: any;
+      twitterUserId: string;
+      email?: string | null;
+      name: string;
+      image: string;
+      wallets: Array<{ __typename?: "wallets"; key: string }>;
+    } | null;
   }>;
 };
 
@@ -960,6 +990,15 @@ export type AddNftweetMutation = {
     tweetId: string;
     userId: any;
     createdAt: any;
+    user?: {
+      __typename?: "users";
+      id: any;
+      twitterUserId: string;
+      email?: string | null;
+      name: string;
+      image: string;
+      wallets: Array<{ __typename?: "wallets"; key: string }>;
+    } | null;
   } | null;
 };
 
@@ -1044,6 +1083,27 @@ export type UpsertUserMutation = {
 
 export type WalletFieldsFragment = { __typename?: "wallets"; key: string };
 
+export type WalletQueryVariables = Exact<{
+  key: Scalars["String"];
+}>;
+
+export type WalletQuery = {
+  __typename?: "query_root";
+  wallet?: {
+    __typename?: "wallets";
+    key: string;
+    user: {
+      __typename?: "users";
+      id: any;
+      twitterUserId: string;
+      email?: string | null;
+      name: string;
+      image: string;
+      wallets: Array<{ __typename?: "wallets"; key: string }>;
+    };
+  } | null;
+};
+
 export type AddWalletMutationVariables = Exact<{
   key: Scalars["String"];
   userId: Scalars["uuid"];
@@ -1054,14 +1114,6 @@ export type AddWalletMutation = {
   wallet?: { __typename?: "wallets"; key: string } | null;
 };
 
-export const NftweetFieldsFragmentDoc = gql`
-  fragment NftweetFields on nftweets {
-    mintKey
-    tweetId
-    userId
-    createdAt
-  }
-`;
 export const WalletFieldsFragmentDoc = gql`
   fragment WalletFields on wallets {
     key
@@ -1079,6 +1131,18 @@ export const UserFieldsFragmentDoc = gql`
     }
   }
   ${WalletFieldsFragmentDoc}
+`;
+export const NftweetFieldsFragmentDoc = gql`
+  fragment NftweetFields on nftweets {
+    mintKey
+    tweetId
+    userId
+    createdAt
+    user {
+      ...UserFields
+    }
+  }
+  ${UserFieldsFragmentDoc}
 `;
 export const NftweetDocument = gql`
   query Nftweet($mintKey: String!) {
@@ -1518,6 +1582,59 @@ export type UpsertUserMutationResult =
 export type UpsertUserMutationOptions = Apollo.BaseMutationOptions<
   UpsertUserMutation,
   UpsertUserMutationVariables
+>;
+export const WalletDocument = gql`
+  query Wallet($key: String!) {
+    wallet: wallets_by_pk(key: $key) {
+      ...WalletFields
+      user {
+        ...UserFields
+      }
+    }
+  }
+  ${WalletFieldsFragmentDoc}
+  ${UserFieldsFragmentDoc}
+`;
+
+/**
+ * __useWalletQuery__
+ *
+ * To run a query within a React component, call `useWalletQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWalletQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWalletQuery({
+ *   variables: {
+ *      key: // value for 'key'
+ *   },
+ * });
+ */
+export function useWalletQuery(
+  baseOptions: Apollo.QueryHookOptions<WalletQuery, WalletQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<WalletQuery, WalletQueryVariables>(
+    WalletDocument,
+    options
+  );
+}
+export function useWalletLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<WalletQuery, WalletQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<WalletQuery, WalletQueryVariables>(
+    WalletDocument,
+    options
+  );
+}
+export type WalletQueryHookResult = ReturnType<typeof useWalletQuery>;
+export type WalletLazyQueryHookResult = ReturnType<typeof useWalletLazyQuery>;
+export type WalletQueryResult = Apollo.QueryResult<
+  WalletQuery,
+  WalletQueryVariables
 >;
 export const AddWalletDocument = gql`
   mutation AddWallet($key: String!, $userId: uuid!) {

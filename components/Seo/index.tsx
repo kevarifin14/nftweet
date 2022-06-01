@@ -1,6 +1,5 @@
 import { useMetadataContext } from "contexts/metadata";
 import { DefaultSeo, DefaultSeoProps } from "next-seo";
-import { useRouter } from "next/router";
 
 export function Seo() {
   const { name, description, url, handle } = useMetadataContext();
@@ -10,7 +9,7 @@ export function Seo() {
     description,
     url,
     type: "website",
-    // images: [{ url: `${url}/thumbnail.png` }],
+    images: [{ url: `${url}/thumbnail.png` }],
   };
 
   const twitter = {

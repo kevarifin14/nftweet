@@ -11,11 +11,13 @@ export const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 // https://github.com/DavidWells/analytics/issues/220
 export const analytics = Analytics({
-  plugins: [
-    MixpanelPlugin({
-      token: process.env.NEXT_PUBLIC_MIXPANEL_TOKEN,
-    }),
-  ],
+  plugins: IS_PRODUCTION
+    ? [
+        MixpanelPlugin({
+          token: process.env.NEXT_PUBLIC_MIXPANEL_TOKEN,
+        }),
+      ]
+    : [],
 });
 
 export const trackMakeAnOfferInterest = () => {

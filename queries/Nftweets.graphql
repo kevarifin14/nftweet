@@ -3,6 +3,9 @@ fragment NftweetFields on nftweets {
   tweetId
   userId
   createdAt
+  user {
+    ...UserFields
+  }
 }
 
 query Nftweet($mintKey: String!) {

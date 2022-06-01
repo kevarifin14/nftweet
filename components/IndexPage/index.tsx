@@ -123,7 +123,6 @@ export function IndexPage() {
           },
         });
         uri = uploadMetadataResult.uri;
-        image = uploadMetadataResult.metadata.image;
 
         setMetadataUri(uri);
         toggleUploading();

@@ -12,6 +12,8 @@ import {
 import { clusterApiUrl } from "@solana/web3.js";
 import { ReactNode, useMemo } from "react";
 
+import { IS_PRODUCTION } from "lib/analytics";
+
 type WalletConnectionProviderProps = {
   children: ReactNode;
 };
@@ -24,13 +26,13 @@ export function WalletConnectionProvider({
       ? WalletAdapterNetwork.Devnet
       : WalletAdapterNetwork.Mainnet;
 
-  const endpoint = useMemo(() => {
-    if (process.env.NODE_ENV === "development") {
-      return clusterApiUrl(network);
-    } else {
-      return "https://falling-withered-water.solana-mainnet.quiknode.pro/94ebe618ceec1f234f1d9346693e89feaf3bf3a7/";
-    }
-  }, [network]);
+  const endpoint = useMemo(
+    () =>
+      IS_PRODUCTION
+        ? "https://falling-withered-water.solana-mainnet.quiknode.pro/94ebe618ceec1f234f1d9346693e89feaf3bf3a7/"
+        : clusterApiUrl(network),
+    [network]
+  );
 
   const wallets = useMemo(
     () => [

@@ -3,7 +3,8 @@ import { PublicKey } from "@solana/web3.js";
 import { Nftweets } from "generated";
 import { useAtaForMint } from "hooks/useAtaForMint";
 import { useMetaplex } from "hooks/useMetaplex";
-import { basisPointsToPercent } from "lib";
+import { useNftOwner } from "hooks/useNftOwner";
+import { basisPointsToPercent, shortenAddress } from "lib";
 import _ from "lodash";
 import { useEffect, useState } from "react";
 
@@ -13,7 +14,9 @@ import { Container } from "components/Container";
 import { Disclosure } from "components/Disclosure";
 import { Header } from "components/Header";
 import { LoadingPage } from "components/Layout/LoadingPage";
+import { MediaObject } from "components/MediaObject";
 import { renderNotification } from "components/Notification";
+import { UserMediaObject } from "components/UserMediaObject";
 
 import { trackMakeAnOfferInterest } from "lib/analytics";
 
@@ -26,6 +29,10 @@ type NftweetPageProps = {
 export function NftweetPage({ nftweet }: NftweetPageProps) {
   const metaplex = useMetaplex();
   const [nft, setNft] = useState<Nft>();
+  const { publicKey: ownerPublicKey, wallet: ownerWallet } = useNftOwner(
+    nft?.mint!
+  );
+  console.log(ownerPublicKey);
   const ata = useAtaForMint(nft?.mint!, nft?.updateAuthority!);
 
   useEffect(() => {
@@ -58,6 +65,29 @@ export function NftweetPage({ nftweet }: NftweetPageProps) {
             ctaOnClick={() => window.open(nft.metadata.external_url)}
             size="xl"
           />
+
+          <div className="flex justify-between">
+            <div>
+              <p className="text-sm text-dark-accent dark:text-light-accent pb-1">
+                Collector
+              </p>
+              {ownerWallet ? (
+                <UserMediaObject user={ownerWallet.user} />
+              ) : (
+                <MediaObject
+                  title={shortenAddress(ownerPublicKey?.toString()!)}
+                  loading={ownerPublicKey === undefined}
+                />
+              )}
+            </div>
+
+            <div>
+              <p className="text-sm text-dark-accent dark:text-light-accent pb-1">
+                Tweeter
+              </p>
+              <UserMediaObject user={nftweet.user} />
+            </div>
+          </div>
 
           <Card size="7xl" className="flex items-center justify-center">
             <Button type="primary" onClick={handleMakeAnOffer}>

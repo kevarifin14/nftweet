@@ -51,6 +51,7 @@ export function MediaObject({
         )}
       >
         <Header
+          loading={loading}
           title={title}
           description={description}
           size={downsize(size, 3)}

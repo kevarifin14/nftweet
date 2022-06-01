@@ -1,4 +1,5 @@
 import { Users } from "generated";
+import { shortenAddress } from "lib";
 
 import { MediaObject } from "components/MediaObject";
 
@@ -19,9 +20,12 @@ export function UserMediaObject({
     <MediaObject
       title={user?.name}
       src={user?.image!}
-      // description={user?.email}
+      description={
+        user.wallets.length ? shortenAddress(user?.wallets[0].key!) : ""
+      }
       vertical={vertical}
       size={size}
+      loading={!user}
     />
   );
 }

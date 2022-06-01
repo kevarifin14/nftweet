@@ -1,5 +1,6 @@
 import { useCurrentUser } from "contexts/currentUser";
 import { signOut, signIn } from "next-auth/react";
+import Link from "next/link";
 import { HiLogout } from "react-icons/hi";
 
 import { Button } from "components/Button";
@@ -20,7 +21,12 @@ export function Navbar() {
 
   return (
     <nav className="mx-auto flex max-w-7xl pt-8 items-center justify-center relative">
-      <div className="flex-1" />
+      <div className="flex-1">
+        <Link href="/">
+          <a className="text-2xl">✍️ NFTweets</a>
+        </Link>
+      </div>
+
       <div className="flex space-x-4">
         <GmButton />
         {currentUser ? (
