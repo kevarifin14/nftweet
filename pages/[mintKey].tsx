@@ -20,6 +20,7 @@ export default function Nftweet({ nftweet }: NftweetProps) {
     <>
       <Head>
         <meta property="og:image" content={nftweet.image!} />
+        <meta property="twitter:image" content={nftweet.image!} />
       </Head>
 
       <NftweetPage nftweet={nftweet} />
