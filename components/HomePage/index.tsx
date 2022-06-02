@@ -3,6 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { useNftweetsQuery } from "generated";
 import { useMetaplex } from "hooks/useMetaplex";
 import _ from "lodash";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -16,34 +17,20 @@ type HomePageProps = {};
 
 export function HomePage({}: HomePageProps) {
   const { data, loading } = useNftweetsQuery();
-  const metaplex = useMetaplex();
-  const [nfts, setNfts] = useState<Nft[]>();
   const router = useRouter();
 
-  useEffect(() => {
-    if (data?.nftweets) {
-      metaplex
-        .nfts()
-        .findAllByMintList(
-          data?.nftweets.map((nftweet) => new PublicKey(nftweet.mintKey))
-        )
-        .then(setNfts);
-    }
-  }, [metaplex, data, setNfts]);
-
-  if (!nfts || loading) return <LoadingPage />;
+  if (loading) return <LoadingPage />;
 
   return (
     <Container size="5xl">
       <Header title="Latest NFTweets" className="pb-8" />
       <div className="grid grid-cols-3 gap-6">
-        {_.range(nfts?.length).map((i) => (
-          <button
-            key={data?.nftweets[i].mintKey}
-            onClick={() => router.push(`/${data?.nftweets[i].mintKey}`)}
-          >
-            <NftweetCard nftweet={data?.nftweets[i]} nft={nfts[i]} />
-          </button>
+        {data?.nftweets.map((nftweet) => (
+          <Link href={`/${nftweet.mintKey}`} key={nftweet.tweetId}>
+            <a>
+              <NftweetCard nftweet={nftweet} />
+            </a>
+          </Link>
         ))}
       </div>
     </Container>

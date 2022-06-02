@@ -23,7 +23,7 @@ export function Navbar() {
     <nav className="mx-auto flex max-w-7xl pt-8 items-center justify-center relative">
       <div className="flex-1">
         <Link href="/">
-          <a className="text-2xl">✍️ NFTweets</a>
+          <a className="text-2xl">✍️ NFTweet</a>
         </Link>
       </div>
 
