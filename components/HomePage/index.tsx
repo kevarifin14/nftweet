@@ -27,7 +27,7 @@ export function HomePage({}: HomePageProps) {
       <TwitterLinkForm />
 
       <Header title="Latest NFTweets" className="pb-8" />
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-3 gap-6">
         {data?.nftweets.map((nftweet) => (
           <Link href={`/${nftweet.mintKey}`} key={nftweet.tweetId}>
             <a>
