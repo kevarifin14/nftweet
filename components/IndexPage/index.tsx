@@ -144,7 +144,6 @@ export function IndexPage() {
       toggleMinting();
       try {
         const { transactionId, mint } = await metaplex.nfts().create({ uri });
-        setTransactionId(transactionId);
         await addNftweet({
           variables: {
             userId: currentUser?.id,
@@ -153,9 +152,11 @@ export function IndexPage() {
             image: nftImage,
           },
         });
+        setTransactionId(transactionId);
         toggleMinting();
       } catch (e) {
         toggleMinting();
+        console.log(e);
         renderNotification({
           title: "There was a problem minting your NFTweet",
         });

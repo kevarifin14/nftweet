@@ -9,20 +9,23 @@ import { useEffect, useState } from "react";
 
 import { Container } from "components/Container";
 import { Header } from "components/Header";
+import { Input } from "components/Input";
 import { LoadingPage } from "components/Layout/LoadingPage";
 
 import { NftweetCard } from "./NftweetCard";
+import { TwitterLinkForm } from "./TwitterLinkForm";
 
 type HomePageProps = {};
 
 export function HomePage({}: HomePageProps) {
   const { data, loading } = useNftweetsQuery();
-  const router = useRouter();
 
   if (loading) return <LoadingPage />;
 
   return (
-    <Container size="5xl">
+    <Container size="5xl" className="space-y-8">
+      <TwitterLinkForm />
+
       <Header title="Latest NFTweets" className="pb-8" />
       <div className="grid grid-cols-3 gap-6">
         {data?.nftweets.map((nftweet) => (
