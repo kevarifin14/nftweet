@@ -23,7 +23,7 @@ export function HomePage({}: HomePageProps) {
   if (loading) return <LoadingPage />;
 
   return (
-    <Container size="5xl" className="space-y-8">
+    <Container size="5xl" className="space-y-8 py-4">
       <TwitterLinkForm />
 
       <Header title="Latest NFTweets" className="pb-8" />
