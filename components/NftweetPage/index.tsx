@@ -95,17 +95,18 @@ export function NftweetPage({ nftweet }: NftweetPageProps) {
             </Button>
           </Card>
 
-          <div className="grid grid-cols-2 grid-rows-2 gap-4">
-            {nft.metadata?.attributes?.map((attribute) => (
-              <Card key={attribute.trait_type} size="xl">
+          <Disclosure title="Attributes" defaultOpen>
+            <div className="space-y-4">
+              {nft.metadata?.attributes?.map((attribute) => (
                 <Header
-                  size="sm"
+                  key={attribute.trait_type}
+                  size="xs"
                   title={_.startCase(attribute.trait_type)}
                   description={attribute.value?.toString().slice(0, 32)}
                 />
-              </Card>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Disclosure>
 
           <Disclosure title="Details">
             <div className="space-y-2">

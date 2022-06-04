@@ -11,11 +11,12 @@ import { classNames, sizeToPaddingClassName } from "lib/tailwind";
 type DisclosureProps = {
   title: string;
   children: ReactNode;
+  defaultOpen?: boolean;
 };
 
-export function Disclosure({ title, children }: DisclosureProps) {
+export function Disclosure({ title, children, defaultOpen }: DisclosureProps) {
   return (
-    <HeadlessDisclosure>
+    <HeadlessDisclosure defaultOpen={defaultOpen}>
       {({ open }) => (
         <div>
           <HeadlessDisclosure.Button
