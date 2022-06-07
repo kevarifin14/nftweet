@@ -10,3 +10,5 @@ mutation AddMentions($objects: [mentions_insert_input!] = {tweetId: ""}) {
     }
   }
 }
+
+query 
