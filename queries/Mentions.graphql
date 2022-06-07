@@ -1,0 +1,12 @@
+fragment MentionFields on mentions {
+  tweetId
+  createdAt
+}
+
+mutation AddMentions($objects: [mentions_insert_input!] = {tweetId: ""}) {
+  mentions: insert_mentions(objects: $objects) {
+    returning {
+      ...MentionFields
+    }
+  }
+}

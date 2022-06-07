@@ -20,6 +20,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  timestamp: any;
   timestamptz: any;
   uuid: any;
 };
@@ -57,9 +58,136 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars["String"]>;
 };
 
+/** columns and relationships of "mentions" */
+export type Mentions = {
+  __typename?: "mentions";
+  createdAt: Scalars["timestamp"];
+  tweetId: Scalars["String"];
+  updatedAt: Scalars["timestamptz"];
+};
+
+/** aggregated selection of "mentions" */
+export type Mentions_Aggregate = {
+  __typename?: "mentions_aggregate";
+  aggregate?: Maybe<Mentions_Aggregate_Fields>;
+  nodes: Array<Mentions>;
+};
+
+/** aggregate fields of "mentions" */
+export type Mentions_Aggregate_Fields = {
+  __typename?: "mentions_aggregate_fields";
+  count: Scalars["Int"];
+  max?: Maybe<Mentions_Max_Fields>;
+  min?: Maybe<Mentions_Min_Fields>;
+};
+
+/** aggregate fields of "mentions" */
+export type Mentions_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Mentions_Select_Column>>;
+  distinct?: InputMaybe<Scalars["Boolean"]>;
+};
+
+/** Boolean expression to filter rows from the table "mentions". All fields are combined with a logical 'AND'. */
+export type Mentions_Bool_Exp = {
+  _and?: InputMaybe<Array<Mentions_Bool_Exp>>;
+  _not?: InputMaybe<Mentions_Bool_Exp>;
+  _or?: InputMaybe<Array<Mentions_Bool_Exp>>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  tweetId?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "mentions" */
+export enum Mentions_Constraint {
+  /** unique or primary key constraint */
+  MentionsPkey = "mentions_pkey",
+}
+
+/** input type for inserting data into table "mentions" */
+export type Mentions_Insert_Input = {
+  createdAt?: InputMaybe<Scalars["timestamp"]>;
+  tweetId?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["timestamptz"]>;
+};
+
+/** aggregate max on columns */
+export type Mentions_Max_Fields = {
+  __typename?: "mentions_max_fields";
+  createdAt?: Maybe<Scalars["timestamp"]>;
+  tweetId?: Maybe<Scalars["String"]>;
+  updatedAt?: Maybe<Scalars["timestamptz"]>;
+};
+
+/** aggregate min on columns */
+export type Mentions_Min_Fields = {
+  __typename?: "mentions_min_fields";
+  createdAt?: Maybe<Scalars["timestamp"]>;
+  tweetId?: Maybe<Scalars["String"]>;
+  updatedAt?: Maybe<Scalars["timestamptz"]>;
+};
+
+/** response of any mutation on the table "mentions" */
+export type Mentions_Mutation_Response = {
+  __typename?: "mentions_mutation_response";
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars["Int"];
+  /** data from the rows affected by the mutation */
+  returning: Array<Mentions>;
+};
+
+/** on conflict condition type for table "mentions" */
+export type Mentions_On_Conflict = {
+  constraint: Mentions_Constraint;
+  update_columns?: Array<Mentions_Update_Column>;
+  where?: InputMaybe<Mentions_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "mentions". */
+export type Mentions_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  tweetId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: mentions */
+export type Mentions_Pk_Columns_Input = {
+  tweetId: Scalars["String"];
+};
+
+/** select columns of table "mentions" */
+export enum Mentions_Select_Column {
+  /** column name */
+  CreatedAt = "createdAt",
+  /** column name */
+  TweetId = "tweetId",
+  /** column name */
+  UpdatedAt = "updatedAt",
+}
+
+/** input type for updating data in table "mentions" */
+export type Mentions_Set_Input = {
+  createdAt?: InputMaybe<Scalars["timestamp"]>;
+  tweetId?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["timestamptz"]>;
+};
+
+/** update columns of table "mentions" */
+export enum Mentions_Update_Column {
+  /** column name */
+  CreatedAt = "createdAt",
+  /** column name */
+  TweetId = "tweetId",
+  /** column name */
+  UpdatedAt = "updatedAt",
+}
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: "mutation_root";
+  /** delete data from the table: "mentions" */
+  delete_mentions?: Maybe<Mentions_Mutation_Response>;
+  /** delete single row from the table: "mentions" */
+  delete_mentions_by_pk?: Maybe<Mentions>;
   /** delete data from the table: "nftweets" */
   delete_nftweets?: Maybe<Nftweets_Mutation_Response>;
   /** delete single row from the table: "nftweets" */
@@ -72,6 +200,10 @@ export type Mutation_Root = {
   delete_wallets?: Maybe<Wallets_Mutation_Response>;
   /** delete single row from the table: "wallets" */
   delete_wallets_by_pk?: Maybe<Wallets>;
+  /** insert data into the table: "mentions" */
+  insert_mentions?: Maybe<Mentions_Mutation_Response>;
+  /** insert a single row into the table: "mentions" */
+  insert_mentions_one?: Maybe<Mentions>;
   /** insert data into the table: "nftweets" */
   insert_nftweets?: Maybe<Nftweets_Mutation_Response>;
   /** insert a single row into the table: "nftweets" */
@@ -84,6 +216,10 @@ export type Mutation_Root = {
   insert_wallets?: Maybe<Wallets_Mutation_Response>;
   /** insert a single row into the table: "wallets" */
   insert_wallets_one?: Maybe<Wallets>;
+  /** update data of the table: "mentions" */
+  update_mentions?: Maybe<Mentions_Mutation_Response>;
+  /** update single row of the table: "mentions" */
+  update_mentions_by_pk?: Maybe<Mentions>;
   /** update data of the table: "nftweets" */
   update_nftweets?: Maybe<Nftweets_Mutation_Response>;
   /** update single row of the table: "nftweets" */
@@ -96,6 +232,16 @@ export type Mutation_Root = {
   update_wallets?: Maybe<Wallets_Mutation_Response>;
   /** update single row of the table: "wallets" */
   update_wallets_by_pk?: Maybe<Wallets>;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_MentionsArgs = {
+  where: Mentions_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootDelete_Mentions_By_PkArgs = {
+  tweetId: Scalars["String"];
 };
 
 /** mutation root */
@@ -126,6 +272,18 @@ export type Mutation_RootDelete_WalletsArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Wallets_By_PkArgs = {
   key: Scalars["String"];
+};
+
+/** mutation root */
+export type Mutation_RootInsert_MentionsArgs = {
+  objects: Array<Mentions_Insert_Input>;
+  on_conflict?: InputMaybe<Mentions_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsert_Mentions_OneArgs = {
+  object: Mentions_Insert_Input;
+  on_conflict?: InputMaybe<Mentions_On_Conflict>;
 };
 
 /** mutation root */
@@ -162,6 +320,18 @@ export type Mutation_RootInsert_WalletsArgs = {
 export type Mutation_RootInsert_Wallets_OneArgs = {
   object: Wallets_Insert_Input;
   on_conflict?: InputMaybe<Wallets_On_Conflict>;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_MentionsArgs = {
+  _set?: InputMaybe<Mentions_Set_Input>;
+  where: Mentions_Bool_Exp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdate_Mentions_By_PkArgs = {
+  _set?: InputMaybe<Mentions_Set_Input>;
+  pk_columns: Mentions_Pk_Columns_Input;
 };
 
 /** mutation root */
@@ -368,6 +538,12 @@ export enum Order_By {
 
 export type Query_Root = {
   __typename?: "query_root";
+  /** fetch data from the table: "mentions" */
+  mentions: Array<Mentions>;
+  /** fetch aggregated fields from the table: "mentions" */
+  mentions_aggregate: Mentions_Aggregate;
+  /** fetch data from the table: "mentions" using primary key columns */
+  mentions_by_pk?: Maybe<Mentions>;
   /** fetch data from the table: "nftweets" */
   nftweets: Array<Nftweets>;
   /** fetch aggregated fields from the table: "nftweets" */
@@ -386,6 +562,26 @@ export type Query_Root = {
   wallets_aggregate: Wallets_Aggregate;
   /** fetch data from the table: "wallets" using primary key columns */
   wallets_by_pk?: Maybe<Wallets>;
+};
+
+export type Query_RootMentionsArgs = {
+  distinct_on?: InputMaybe<Array<Mentions_Select_Column>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+  order_by?: InputMaybe<Array<Mentions_Order_By>>;
+  where?: InputMaybe<Mentions_Bool_Exp>;
+};
+
+export type Query_RootMentions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Mentions_Select_Column>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+  order_by?: InputMaybe<Array<Mentions_Order_By>>;
+  where?: InputMaybe<Mentions_Bool_Exp>;
+};
+
+export type Query_RootMentions_By_PkArgs = {
+  tweetId: Scalars["String"];
 };
 
 export type Query_RootNftweetsArgs = {
@@ -450,6 +646,12 @@ export type Query_RootWallets_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: "subscription_root";
+  /** fetch data from the table: "mentions" */
+  mentions: Array<Mentions>;
+  /** fetch aggregated fields from the table: "mentions" */
+  mentions_aggregate: Mentions_Aggregate;
+  /** fetch data from the table: "mentions" using primary key columns */
+  mentions_by_pk?: Maybe<Mentions>;
   /** fetch data from the table: "nftweets" */
   nftweets: Array<Nftweets>;
   /** fetch aggregated fields from the table: "nftweets" */
@@ -468,6 +670,26 @@ export type Subscription_Root = {
   wallets_aggregate: Wallets_Aggregate;
   /** fetch data from the table: "wallets" using primary key columns */
   wallets_by_pk?: Maybe<Wallets>;
+};
+
+export type Subscription_RootMentionsArgs = {
+  distinct_on?: InputMaybe<Array<Mentions_Select_Column>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+  order_by?: InputMaybe<Array<Mentions_Order_By>>;
+  where?: InputMaybe<Mentions_Bool_Exp>;
+};
+
+export type Subscription_RootMentions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Mentions_Select_Column>>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  offset?: InputMaybe<Scalars["Int"]>;
+  order_by?: InputMaybe<Array<Mentions_Order_By>>;
+  where?: InputMaybe<Mentions_Bool_Exp>;
+};
+
+export type Subscription_RootMentions_By_PkArgs = {
+  tweetId: Scalars["String"];
 };
 
 export type Subscription_RootNftweetsArgs = {
@@ -528,6 +750,19 @@ export type Subscription_RootWallets_AggregateArgs = {
 
 export type Subscription_RootWallets_By_PkArgs = {
   key: Scalars["String"];
+};
+
+/** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
+export type Timestamp_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars["timestamp"]>;
+  _gt?: InputMaybe<Scalars["timestamp"]>;
+  _gte?: InputMaybe<Scalars["timestamp"]>;
+  _in?: InputMaybe<Array<Scalars["timestamp"]>>;
+  _is_null?: InputMaybe<Scalars["Boolean"]>;
+  _lt?: InputMaybe<Scalars["timestamp"]>;
+  _lte?: InputMaybe<Scalars["timestamp"]>;
+  _neq?: InputMaybe<Scalars["timestamp"]>;
+  _nin?: InputMaybe<Array<Scalars["timestamp"]>>;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
@@ -900,6 +1135,28 @@ export enum Wallets_Update_Column {
   UserId = "userId",
 }
 
+export type MentionFieldsFragment = {
+  __typename?: "mentions";
+  tweetId: string;
+  createdAt: any;
+};
+
+export type AddMentionsMutationVariables = Exact<{
+  objects?: InputMaybe<Array<Mentions_Insert_Input> | Mentions_Insert_Input>;
+}>;
+
+export type AddMentionsMutation = {
+  __typename?: "mutation_root";
+  mentions?: {
+    __typename?: "mentions_mutation_response";
+    returning: Array<{
+      __typename?: "mentions";
+      tweetId: string;
+      createdAt: any;
+    }>;
+  } | null;
+};
+
 export type NftweetFieldsFragment = {
   __typename?: "nftweets";
   mintKey: string;
@@ -1131,6 +1388,12 @@ export type AddWalletMutation = {
   wallet?: { __typename?: "wallets"; key: string } | null;
 };
 
+export const MentionFieldsFragmentDoc = gql`
+  fragment MentionFields on mentions {
+    tweetId
+    createdAt
+  }
+`;
 export const WalletFieldsFragmentDoc = gql`
   fragment WalletFields on wallets {
     key
@@ -1162,6 +1425,59 @@ export const NftweetFieldsFragmentDoc = gql`
   }
   ${UserFieldsFragmentDoc}
 `;
+export const AddMentionsDocument = gql`
+  mutation AddMentions($objects: [mentions_insert_input!] = { tweetId: "" }) {
+    mentions: insert_mentions(objects: $objects) {
+      returning {
+        ...MentionFields
+      }
+    }
+  }
+  ${MentionFieldsFragmentDoc}
+`;
+export type AddMentionsMutationFn = Apollo.MutationFunction<
+  AddMentionsMutation,
+  AddMentionsMutationVariables
+>;
+
+/**
+ * __useAddMentionsMutation__
+ *
+ * To run a mutation, you first call `useAddMentionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddMentionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addMentionsMutation, { data, loading, error }] = useAddMentionsMutation({
+ *   variables: {
+ *      objects: // value for 'objects'
+ *   },
+ * });
+ */
+export function useAddMentionsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddMentionsMutation,
+    AddMentionsMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<AddMentionsMutation, AddMentionsMutationVariables>(
+    AddMentionsDocument,
+    options
+  );
+}
+export type AddMentionsMutationHookResult = ReturnType<
+  typeof useAddMentionsMutation
+>;
+export type AddMentionsMutationResult =
+  Apollo.MutationResult<AddMentionsMutation>;
+export type AddMentionsMutationOptions = Apollo.BaseMutationOptions<
+  AddMentionsMutation,
+  AddMentionsMutationVariables
+>;
 export const NftweetDocument = gql`
   query Nftweet($mintKey: String!) {
     nftweet: nftweets_by_pk(mintKey: $mintKey) {
