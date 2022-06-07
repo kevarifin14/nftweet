@@ -1,0 +1,13 @@
+name: mentions-every-15-minutes
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Manage Mentions
+        run: |
+          curl --request POST \
+          --url 'https://makenftweet.com/api/mentions' \
+          --header 'Authorization: Bearer ${{ secrets.NFTWEET_API_KEY }}'
