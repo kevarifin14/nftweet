@@ -30,7 +30,7 @@ export function TwitterLinkForm({ className }: TwitterLinkFormProps) {
 
   const handleFormSubmit = async ({ twitterLink }: TwitterLinkFormFields) => {
     const groups = twitterLink.match(
-      /^http(s)?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$/
+      /^http(s)?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)(.*)$/
     );
     if (!groups) {
       renderNotification({
@@ -53,7 +53,7 @@ export function TwitterLinkForm({ className }: TwitterLinkFormProps) {
           required: true,
           pattern: {
             value:
-              /^http(s)?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$/,
+              /^http(s)?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)(.*)$/,
             message: "Hmm... this doesn't look like a Twitter link",
           },
         })}
