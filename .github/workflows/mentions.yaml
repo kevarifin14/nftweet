@@ -1,4 +1,4 @@
-name: mentions-every-5-minutes
+name: mentions
 on:
   schedule:
     - cron: '*/5 * * * *'
