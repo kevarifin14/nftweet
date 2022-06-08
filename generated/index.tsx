@@ -1141,6 +1141,13 @@ export type MentionFieldsFragment = {
   createdAt: any;
 };
 
+export type LastMentionQueryVariables = Exact<{ [key: string]: never }>;
+
+export type LastMentionQuery = {
+  __typename?: "query_root";
+  mentions: Array<{ __typename?: "mentions"; tweetId: string; createdAt: any }>;
+};
+
 export type AddMentionsMutationVariables = Exact<{
   objects?: InputMaybe<Array<Mentions_Insert_Input> | Mentions_Insert_Input>;
 }>;
@@ -1425,6 +1432,62 @@ export const NftweetFieldsFragmentDoc = gql`
   }
   ${UserFieldsFragmentDoc}
 `;
+export const LastMentionDocument = gql`
+  query LastMention {
+    mentions(order_by: { createdAt: desc }, limit: 1) {
+      ...MentionFields
+    }
+  }
+  ${MentionFieldsFragmentDoc}
+`;
+
+/**
+ * __useLastMentionQuery__
+ *
+ * To run a query within a React component, call `useLastMentionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLastMentionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLastMentionQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLastMentionQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    LastMentionQuery,
+    LastMentionQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<LastMentionQuery, LastMentionQueryVariables>(
+    LastMentionDocument,
+    options
+  );
+}
+export function useLastMentionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    LastMentionQuery,
+    LastMentionQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<LastMentionQuery, LastMentionQueryVariables>(
+    LastMentionDocument,
+    options
+  );
+}
+export type LastMentionQueryHookResult = ReturnType<typeof useLastMentionQuery>;
+export type LastMentionLazyQueryHookResult = ReturnType<
+  typeof useLastMentionLazyQuery
+>;
+export type LastMentionQueryResult = Apollo.QueryResult<
+  LastMentionQuery,
+  LastMentionQueryVariables
+>;
 export const AddMentionsDocument = gql`
   mutation AddMentions($objects: [mentions_insert_input!] = { tweetId: "" }) {
     mentions: insert_mentions(objects: $objects) {
