@@ -157,6 +157,13 @@ export function IndexPage() {
           },
         });
         setTransactionId(transactionId);
+
+        renderNotification({
+          title: "Successfully minted your NFTweet!",
+          description:
+            "It might take some time for the image and metadata to finalize on chain. Sorry Solano.",
+        });
+
         toggleMinting();
       } catch (e) {
         toggleMinting();
