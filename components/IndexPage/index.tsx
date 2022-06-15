@@ -1,4 +1,4 @@
-import { MetaplexFile } from "@metaplex-foundation/js-next";
+import { createNftOperation, MetaplexFile } from "@metaplex-foundation/js-next";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useCurrentUser } from "contexts/currentUser";
@@ -144,7 +144,10 @@ export function IndexPage() {
     if (!transactionId) {
       toggleMinting();
       try {
-        const { transactionId, mint } = await metaplex.nfts().create({ uri });
+        const operation = createNftOperation({ uri });
+        const { mint, transactionId } = await metaplex
+          .operations()
+          .execute(operation);
         await addNftweet({
           variables: {
             userId: currentUser?.id,
