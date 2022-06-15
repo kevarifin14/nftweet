@@ -133,6 +133,7 @@ export function IndexPage() {
         toggleUploading();
       } catch (e) {
         toggleUploading();
+        console.log(e);
         renderNotification({
           title: "There was a problem uploading your NFTweet Metadata",
         });
