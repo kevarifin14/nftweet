@@ -32,7 +32,6 @@ export function NftweetPage({ nftweet }: NftweetPageProps) {
   const { publicKey: ownerPublicKey, wallet: ownerWallet } = useNftOwner(
     nft?.mint!
   );
-  console.log(ownerPublicKey);
   const ata = useAtaForMint(nft?.mint!, nft?.updateAuthority!);
 
   useEffect(() => {
