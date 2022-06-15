@@ -47,8 +47,8 @@ export function WalletConnectionProvider({
     <ConnectionProvider
       endpoint={endpoint}
       config={{
-        commitment: "finalized",
-        confirmTransactionInitialTimeout: 60000,
+        commitment: "confirmed",
+        // confirmTransactionInitialTimeout: 60000,
       }}
     >
       <WalletProvider wallets={wallets} autoConnect>
