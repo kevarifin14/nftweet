@@ -56,10 +56,12 @@ handler.post(async (req, res, next) => {
         tweetCreateEvent.in_reply_to_status_id &&
         tweetCreateEvent.text
           .slice(
-            tweetCreateEvent.display_text_range.length > 0
+            tweetCreateEvent.display_text_range &&
+              tweetCreateEvent.display_text_range.length > 0
               ? tweetCreateEvent.display_text_range[0]
               : 0,
-            tweetCreateEvent.display_text_range.length > 1
+            tweetCreateEvent.display_text_range &&
+              tweetCreateEvent.display_text_range.length > 1
               ? tweetCreateEvent.display_text_range[1]
               : tweetCreateEvent.display_text_range.length
           )
