@@ -38,6 +38,8 @@ handler.post(async (req, res, next) => {
       });
       const rwClient = twitterApiV1.readWrite;
 
+      console.log(tweetCreateEvent);
+
       // original tweet (not a reply)
       if (!tweetCreateEvent.in_reply_to_status_id) {
         tweet = await rwClient.v1.tweet(
@@ -48,8 +50,6 @@ handler.post(async (req, res, next) => {
           }
         );
       }
-
-      console.log(tweetCreateEvent);
 
       // reply
       if (
