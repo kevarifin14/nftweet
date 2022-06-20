@@ -49,15 +49,22 @@ handler.post(async (req, res, next) => {
         );
       }
 
+      console.log(tweetCreateEvent);
+
       // reply
       if (
         tweetCreateEvent.in_reply_to_status_id &&
         tweetCreateEvent.text
           .slice(
-            tweetCreateEvent.display_text_range[0],
-            tweetCreateEvent.display_text_range[1]
+            tweetCreateEvent.display_text_range.length > 0
+              ? tweetCreateEvent.display_text_range[0]
+              : 0,
+            tweetCreateEvent.display_text_range.length > 1
+              ? tweetCreateEvent.display_text_range[1]
+              : tweetCreateEvent.display_text_range.length
           )
-          .includes("@MakeNFTweet")
+          .toLowerCase()
+          .includes("@makenftweet")
       ) {
         tweet = await rwClient.v1.tweet(
           `Mint your NFTweet👇\n\nhttps://makenftweet.com/?tweetId=${tweetCreateEvent.in_reply_to_status_id_str}`,
